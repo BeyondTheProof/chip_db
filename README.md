@@ -22,6 +22,7 @@ Now for usage. In your python code, you will want to have the following:
 	curr_db = chip_data(hdfile, grp, dset, cell_type, tracks=tracks)
 
 The tracks argument can either be a comma-separated list of the filenames you want returned or any one of the following keywords:
+
 	'all': use all available tracks
 	'all_hm': use all histone marks
 	'primary_hm': use only the following marks: H3K27me3, H3K36me3, H3K4me1, H3K4me3, H3K9me3, H3K27ac
@@ -29,6 +30,7 @@ The tracks argument can either be a comma-separated list of the filenames you wa
 	'ctcf': use CTCF tracks
 	'imputed': use imputed signal tracks, e.g., from ChromImpute
 	'observed': use everything but imputed tracks
+
 If you use multiple arguments here (comma-separated list), it will take the union of the sets. As all of these options look at the file names, it may be worth it to go through the code and make sure it's doing what you want. You can always do chip_db.curr_tracks to check what's actually being used.
 
 To get data from a certain region of the genome, do:
