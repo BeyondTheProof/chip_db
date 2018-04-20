@@ -21,6 +21,16 @@ Now for usage. In your python code, you will want to have the following:
 	dset = grp[u'chip_tracks']
 	curr_db = chip_data(hdfile, grp, dset, cell_type, tracks=tracks)
 
+The tracks argument can either be a comma-separated list of the filenames you want returned or any one of the following keywords:
+	'all': use all available tracks
+	'all_hm': use all histone marks
+	'primary_hm': use only the following marks: H3K27me3, H3K36me3, H3K4me1, H3K4me3, H3K9me3, H3K27ac
+	'secondary_hm': use primary_hm and: H3K4me2, H3K9ac, H4K20me1, H3K79me2, H2A.Z, DNase
+	'ctcf': use CTCF tracks
+	'imputed': use imputed signal tracks, e.g., from ChromImpute
+	'observed': use everything but imputed tracks
+If you use multiple arguments here (comma-separated list), it will take the union of the sets. As all of these options look at the file names, it may be worth it to go through the code and make sure it's doing what you want. You can always do chip_db.curr_tracks to check what's actually being used.
+
 To get data from a certain region of the genome, do:
 
 	curr_db.get_data(chromosome, start_pos, end_pos, res=None, bin_method='mean', transform=None)
@@ -38,3 +48,5 @@ transform: When populating the database, the script calculates the min, max, mea
 Depending on the application, I recommend using either 'log' or 'log_z'. The former will likely be more useful in applications like neural nets, since often the minimum value is assumed to be 0, but if you want to directly compare signal tracks to each other, use 'log_z'. What's very cool is that ChIP-seq tracks (in the mappable regions) are almost always log-normally distributed. This can be explained by biological effects generally being multiplicative, and not additive. It's the same with, e.g., lengths of introns and exons.
 
 For any bug reports, email me at arturj ucla edu
+
+Enjoy!
